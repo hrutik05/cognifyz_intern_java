@@ -1,0 +1,75 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class FileEncryptorDecryptor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Do you want to (E)ncrypt or (D)ecrypt? ");
+        char choice = scanner.next().charAt(0);
+
+        System.out.print("Enter the file name or path: ");
+        String fileName = scanner.next();
+
+        System.out.print("Enter the shift value (1-25): ");
+        int shift = scanner.nextInt();
+
+        try {
+            String inputFile = fileName;
+            String outputFile;
+
+            if (choice == 'E' || choice == 'e') {
+                outputFile = "encrypted_" + fileName;
+                encryptFile(inputFile, outputFile, shift);
+                System.out.println("File encrypted successfully. Output file: " + outputFile);
+            } else if (choice == 'D' || choice == 'd') {
+                outputFile = "decrypted_" + fileName;
+                decryptFile(inputFile, outputFile, shift);
+                System.out.println("File decrypted successfully. Output file: " + outputFile);
+            } else {
+                System.out.println("Invalid choice. Please choose E or D.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        
+        scanner.close();    
+
+        }
+    }
+
+    private static void encryptFile(String inputFile, String outputFile, int shift) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            int c;
+            while ((c = reader.read()) != -1) {
+                char ch = (char) c;
+                if (ch >= 'A' && ch <= 'Z') {
+                    ch = (char) ('A' + (ch - 'A' + shift) % 26);
+                } else if (ch >= 'a' && ch <= 'z') {
+                    ch = (char) ('a' + (ch - 'a' + shift) % 26);
+                }
+                writer.write(ch);
+            }
+        }
+    }
+
+    private static void decryptFile(String inputFile, String outputFile, int shift) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            int c;
+            while ((c = reader.read()) != -1) {
+                char ch = (char) c;
+                if (ch >= 'A' && ch <= 'Z') {
+                    ch = (char) ('A' + (ch - 'A' - shift) % 26);
+                } else if (ch >= 'a' && ch <= 'z') {
+                    ch = (char) ('a' + (ch - 'a' - shift) % 26);
+                }
+                writer.write(ch);
+            }
+        }
+    }
+}
