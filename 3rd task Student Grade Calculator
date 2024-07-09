@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class AverageGradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of grades: ");
+        int hrutik = scanner.nextInt();
+
+        double sum = 0.0;
+
+        for (int i = 1; i <= hrutik; i++) {
+            System.out.print("Enter grade " + i + ": ");
+            double grade = scanner.nextDouble();
+            sum += grade;
+        }
+
+        double average = sum / hrutik;
+
+        System.out.println("The average grade is: " + average);
+
+        scanner.close();
+    }
+}
