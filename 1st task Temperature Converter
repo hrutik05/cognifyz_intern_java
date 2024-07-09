@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class TemperatureConvertor {
+    public static double celesiusToFahrenheit(double celesius){
+        return(celesius*9/5)+32;
+    }
+    public static double farenheitToCelesius(double farenheit){
+        return(farenheit-32)*5/9;
+    }
+
+public static void main (String[] args){
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Enter temperture value:-");
+    double temperture = scanner.nextDouble();
+
+    System.out.println("Enter unit of measurment (C for celesius AND f for ferrenheit):-");
+    char unit = scanner.next().charAt(0);
+
+    if (unit == 'C'||unit =='c') {
+        double converted = celesiusToFahrenheit(temperture);
+        System.out.println(temperture+"celesiusis "+ converted +"fahreheit.");
+    }else if (unit == 'C' || unit == 'c') {
+        double converted = farenheitToCelesius(temperture);
+        System.out.println(temperture + "fahrenheit is "+ converted +"celsius"); 
+    }else{
+        System.out.println("Invalid unit of measurement"); 
+    }
+    scanner.close();
+}
+}
